@@ -26,6 +26,9 @@ imagen_label.pack(side="top", pady=10)
 entry = Entry(window, font=("Arial", 10, "italic"),width=30)
 entry.pack(side="top", pady=10)
 
+# Asociar la función a la tecla Enter
+entry.bind("<Return>", lambda event: button.button_send(entry, list_word, app))
+
 #creamos el frame
 frame = Frame(window)
 frame.pack(side="top", pady=10)
