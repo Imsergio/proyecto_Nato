@@ -14,12 +14,27 @@ app = Transform.Transform_word()
 window = Tk()
 
 #configuramos la ventana
-window.title("Alfabeto fonético Nato")
-window.geometry("300x420")
-window.minsize(300, 300)
-window.config(bg="gray")
-window.config()
+# Configuración mejorada de la ventana
+window.title("Alfabeto fonético NATO")
+window.geometry("350x500")
+window.minsize(350, 500)
+window.config(bg="#f0f0f0")  # Fondo más suave
 
+# Frame principal con mejor estética
+frame_principal = Frame(window, bg="#f0f0f0")
+frame_principal.config(padx=25, pady=25)
+frame_principal.pack(fill="both", expand=True)
+
+# Estilo consistente para los botones
+button_style = {
+    "font": ("Arial", 10, "bold"),
+    "fg": "white",
+    "activebackground": "#45a049",
+    "borderwidth": 2,
+    "relief": "raised",
+    "padx": 10,
+    "pady": 5
+}
 #ruta proyecto
 path = sys.argv[0] #
 if path.endswith('.py') or path.endswith('.exe'):
@@ -44,21 +59,35 @@ entry = Entry(frame_principal, font=("Arial", 11),justify="center",width=28,
 entry.focus() 
 entry.pack(side="top", pady=10)
 
-# Asociar la función a la tecla Enter
-entry.bind("<Return>", lambda event: button.button_send(entry, list_word, app, csv_path))
+# Añadir placeholder al Entry
+entry.insert(0, "Escribe una palabra...")
+entry.config(fg="grey")
+
+def on_entry_click(event):
+    if entry.get() == "Escribe una palabra...":
+        entry.delete(0, "end")
+        entry.config(fg="black")
+
+def on_focusout(event):
+    if entry.get() == "":
+        entry.insert(0, "Escribe una palabra...")
+        entry.config(fg="grey")
+
+entry.bind('<FocusIn>', on_entry_click)
+entry.bind('<FocusOut>', on_focusout)
 
 #creamos el frame para los botones
 frame1 = Frame(frame_principal)
 frame1.pack(side="top")
 
 #creamos el botón para enviar la palabra
-btn_send = Button(frame1, text="Convertir", font=("Arial", 10),background="green", fg="white",
-            command=lambda: button.button_send(entry, list_word, app, csv_path))
-btn_send.pack(side="left", padx=10)
-#creamos el botón para limpiar la caja de texto
-btn_clean = Button(frame1, text="Limpiar", font=("Arial", 10),background="darkred", fg="white",
-            command=lambda: button.button_clean(entry, list_word))
-btn_clean.pack(side="right")
+btn_send = Button(frame1, text="Convertir", **button_style,bg="#4caf50",
+                 command=lambda: button.button_send(entry, list_word, app, csv_path))
+btn_send.pack(side="left", padx=5)
+#creamos el botón para limpiar la lista
+btn_clean = Button(frame1, text="Limpiar", **button_style,bg="#f44336",
+                  command=lambda: button.button_clean(entry, list_word))
+btn_clean.pack(side="right", padx=5)
 
 #creamos el frame para la lista
 frame2 = Frame(frame_principal)
