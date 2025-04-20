@@ -16,7 +16,7 @@ class Transform_word:
         self.dict = ""
         self.output = []
 
-    def read_data(self, path="assets/data/nato_phonetic_alphabet.csv"):
+    def read_data(self, path):
         """Obtiene los datos del archivo csv y los guarda en un diccionario"""
         self.dict = pd.read_csv(path)
         self.dict = {row.letter:row.code for (index,row) in self.dict.iterrows()}

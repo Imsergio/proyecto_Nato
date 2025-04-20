@@ -2,6 +2,7 @@
 
 #importamos la librerías
 from tkinter import Tk, Frame, Button, Label, Entry,Listbox, PhotoImage,Scrollbar
+import sys
 
 from clases import Transform
 from functions import button
@@ -18,8 +19,16 @@ window.geometry("300x420")
 window.minsize(300, 300)
 window.config(padx=20, pady=50)
 
+#ruta proyecto
+path = sys.argv[0] #
+if path.endswith('.py') or path.endswith('.exe'):
+    path = path[:path.rindex('/')]
+#rutas de archivos
+image_path = path + "./assets/img/nato.png"
+csv_path = path + "./assets/data/nato_phonetic_alphabet.csv"
+
 #insertamos la imagen
-imagen = PhotoImage(file="assets/img/nato.png")
+imagen = PhotoImage(file=image_path)
 imagen_label = Label(window, image=imagen)
 imagen_label.pack(side="top", pady=10)
 
@@ -29,7 +38,7 @@ entry.focus()
 entry.pack(side="top", pady=10)
 
 # Asociar la función a la tecla Enter
-entry.bind("<Return>", lambda event: button.button_send(entry, list_word, app))
+entry.bind("<Return>", lambda event: button.button_send(entry, list_word, app, csv_path))
 
 #creamos el frame para los botones
 frame1 = Frame(window)
@@ -37,7 +46,7 @@ frame1.pack(side="top", pady=10)
 
 #creamos el botón para enviar la palabra
 btn_send = Button(frame1, text="Convertir", font=("Arial", 10),
-            command=lambda: button.button_send(entry, list_word, app))
+            command=lambda: button.button_send(entry, list_word, app, csv_path))
 btn_send.pack(side="left", pady=10, padx=10)
 #creamos el botón para limpiar la caja de texto
 btn_clean = Button(frame1, text="Limpiar", font=("Arial", 10),

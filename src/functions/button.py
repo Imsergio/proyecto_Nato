@@ -1,12 +1,12 @@
 """Módulo para el botón"""
 import clases.Transform
 
-def button_send(entry, list_word, app):
+def button_send(entry, list_word, app, file_path):
     """Convertir palabra a alfabeto fonético"""
     word = entry.get().upper()
     list_word.delete(0, "end")
     if word.isalpha():
-        ouput = app.transform_word_dict(word, app.read_data())
+        ouput = app.transform_word_dict(word, app.read_data(file_path))
         for index, element in enumerate(ouput):
             list_word.insert(index, element)
     else:
