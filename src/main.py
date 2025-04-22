@@ -27,13 +27,9 @@ frame_principal = Frame(window)
 frame_principal.config(padx=25, pady=25)
 frame_principal.pack(fill="both", expand=True)
 
-#ruta proyecto
-path = sys.argv[0] #
-if path.endswith('.py') or path.endswith('.exe'):
-    path = path[:path.rindex('/')]
 #rutas de archivos
-image_path = path + "./assets/img/nato.png"
-csv_path = path + "./assets/data/nato_phonetic_alphabet.csv"
+image_path = "./assets/img/nato.png"
+csv_path = "./assets/data/nato_phonetic_alphabet.csv"
 
 #insertamos la imagen
 imagen = PhotoImage(file=image_path)
@@ -76,7 +72,7 @@ scrollbar.pack(side="right", fill="y" )
 
 #creamos la lista
 list_word = Listbox(frame2,width=20, yscrollcommand = scrollbar.set, font=("Arial", 10),exportselection=True,selectmode="extended",
-            highlightthickness=0,fg="grey", background="#e3e3e3")
+            highlightthickness=0, background="#e3e3e3")
 #configuramos la lista
 scrollbar.config( command = list_word.yview )
 #mostramos la lista
